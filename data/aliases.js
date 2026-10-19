@@ -1,0 +1,28 @@
+// Everyday names that NCBI doesn't attach to the taxon most people mean.
+// alias -> NCBI scientific name. Aliases win over every other search match.
+window.TAXON_ALIASES = {
+  'oak': 'Quercus',
+  'pine': 'Pinus',
+  'rose': 'Rosa',
+  'maple': 'Acer',
+  'fire ant': 'Solenopsis invicta',
+  'ant': 'Formicidae',
+  'fruit fly': 'Drosophila melanogaster',
+  'gorilla': 'Gorilla gorilla',
+  'elephant': 'Loxodonta africana',
+  'whale': 'Balaenoptera musculus',
+  'octopus': 'Octopus vulgaris',
+  'yeast': 'Saccharomyces cerevisiae',
+  'nematode': 'Caenorhabditis elegans',
+  'worm': 'Caenorhabditis elegans',
+  'c. elegans': 'Caenorhabditis elegans',
+  'e. coli': 'Escherichia coli',
+  'frog': 'Xenopus laevis',
+  'shark': 'Carcharodon carcharias',
+  'snake': 'Python bivittatus',
+  'lizard': 'Anolis carolinensis',
+  'turtle': 'Chelonia mydas',
+  'crocodile': 'Crocodylus niloticus',
+  'mushroom': 'Agaricus bisporus',
+  'neanderthal': 'Homo sapiens neanderthalensis',
+};

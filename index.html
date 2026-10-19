@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cladistics Tree</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 30V16M16 16L6 4M16 16l10-12M11 10l3-6' stroke='%232f6b4f' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Cladistics Tree</h1>
+    <p class="tagline">Pick two or more organisms to see how each is classified, the clades where their lineages meet, and roughly when they split.</p>
+  </header>
+
+  <form id="compare-form" class="compare-form" autocomplete="off">
+    <div id="pickers" class="pickers"></div>
+    <div class="form-actions">
+      <button type="button" id="add-picker" class="add">+ Add organism</button>
+      <button type="submit" class="go">Compare</button>
+    </div>
+  </form>
+
+  <div class="examples" id="examples"><span>Try:</span></div>
+
+  <p id="status" class="status" role="status">Loading taxonomy…</p>
+
+  <main id="results" hidden></main>
+
+  <footer class="site-footer" id="footer"></footer>
+
+  <script src="data/taxonomy.js"></script>
+  <script src="data/clade-ages.js"></script>
+  <script src="data/aliases.js"></script>
+  <script src="js/geotime.js"></script>
+  <script src="js/taxonomy.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
