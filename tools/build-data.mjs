@@ -37,6 +37,13 @@ const DEFAULT_EXTRAS = [
   'Bacillus subtilis', 'Methanocaldococcus jannaschii', 'Sulfolobus acidocaldarius', 'Escherichia coli',
 ];
 const extras = opt('include', DEFAULT_EXTRAS.join(',')).split(',').map((s) => s.trim()).filter(Boolean);
+// Every alias target in data/aliases.js must be in the subset, even if NCBI gives it no common name.
+const aliasFile = path.join(import.meta.dirname, '..', 'data', 'aliases.js');
+if (fs.existsSync(aliasFile)) {
+  const sandbox = { window: {} };
+  new Function('window', fs.readFileSync(aliasFile, 'utf8'))(sandbox.window);
+  for (const target of Object.values(sandbox.window.TAXON_ALIASES || {})) if (!extras.includes(target)) extras.push(target);
+}
 
 async function* dmpRows(file) {
   const rl = readline.createInterface({ input: fs.createReadStream(path.join(dumpDir, file)), crlfDelay: Infinity });

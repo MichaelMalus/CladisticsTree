@@ -31,7 +31,7 @@ All files load as classic `<script>` tags, so they work from `file://`.
 | `js/geotime.js` | Geologic time scale (ICS 2023) |
 | `data/taxonomy.js` | Generated subset of the NCBI Taxonomy (~70k taxa, 3.7 MB) |
 | `data/clade-ages.js` | Hand-curated crown-group ages (Mya) for ~150 clades, plus pair overrides. Edit freely |
-| `data/aliases.js` | Everyday names mapped to the taxon people usually mean ("oak" → *Quercus*) |
+| `data/aliases.js` | ~380 everyday names mapped to the taxon people usually mean ("oak" → *Quercus*, "zebra" → *Equus quagga*) |
 | `tools/build-data.mjs` | Regenerates `data/taxonomy.js` from an NCBI dump |
 
 ## How ages are estimated
@@ -60,6 +60,7 @@ By default the build keeps:
 - every taxon with an English common name,
 - every species of mammal and bird,
 - a list of model organisms that have no common name,
+- every target in `data/aliases.js`,
 - all of their ancestors.
 
 You can change this with:
