@@ -29,7 +29,7 @@ All files load as classic `<script>` tags, so they work from `file://`.
 | `index.html`, `css/`, `js/` | The app |
 | `js/taxonomy.js` | Parsing, search, lineage, last common ancestor and age estimation |
 | `js/geotime.js` | Geologic time scale (ICS 2023) |
-| `data/taxonomy.js` | Generated subset of the NCBI Taxonomy (~70k taxa, 3.7 MB) |
+| `data/taxonomy.js` | Generated subset of the NCBI Taxonomy with iNaturalist common names (~190k taxa, 13 MB) |
 | `data/clade-ages.js` | Hand-curated crown-group ages (Mya) for ~150 clades, plus pair overrides. Edit freely |
 | `data/aliases.js` | ~380 everyday names mapped to the taxon people usually mean ("oak" → *Quercus*, "zebra" → *Equus quagga*) |
 | `tools/build-data.mjs` | Regenerates `data/taxonomy.js` from an NCBI dump |
@@ -49,15 +49,18 @@ The ages are rounded figures from molecular-clock studies (TimeTree, dos Reis et
 You'll need Node 18+.
 
 1. Download https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdmp.zip (~80 MB) and unzip `nodes.dmp` and `names.dmp`.
-2. Run:
+2. Optional but recommended: download https://www.inaturalist.org/taxa/inaturalist-taxonomy.dwca.zip (~80 MB) and unzip `taxa.csv` and `VernacularNames-english.csv`.
+3. Run:
 
 ```bash
-node tools/build-data.mjs path/to/dump
+node tools/build-data.mjs path/to/ncbi-dump --inat=path/to/inat-dir
 ```
+
+NCBI only records common names for ~50k taxa. iNaturalist's curated English names add ~120k more (birds, plants, insects, fungi, fish). They're matched to NCBI by exact scientific name, and homonyms are skipped. In search, iNaturalist names rank just below NCBI's own names, so NCBI still decides ties.
 
 By default the build keeps:
 
-- every taxon with an English common name,
+- every taxon with an English common name (from NCBI, plus iNaturalist with `--inat`),
 - every species of mammal and bird,
 - a list of model organisms that have no common name,
 - every target in `data/aliases.js`,
@@ -71,4 +74,4 @@ You can change this with:
 
 Larger subsets make bigger files. Keeping every species under Insecta adds hundreds of MB.
 
-Taxonomy data: NCBI Taxonomy (public domain).
+Taxonomy data: NCBI Taxonomy (public domain). Additional common names: iNaturalist taxonomy export (its metadata states taxonomic information is not treated as creative work).
