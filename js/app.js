@@ -41,6 +41,12 @@ function plainName(node) {
   return node.commonNames[0] || node.name;
 }
 
+// "Common name (Scientific name)", or just the scientific name when there is no common name.
+function fullName(node) {
+  const common = node.commonNames[0];
+  return common ? `${common} (${node.name})` : node.name;
+}
+
 function ncbiLink(node) {
   return `https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=${node.id}`;
 }
@@ -138,9 +144,12 @@ class Picker {
     if (!this.hits.length) { this.close(); return; }
     this.list.innerHTML = this.hits.map(({ node, matched }, i) => {
       const common = matched || node.commonNames[0];
+      // When an alternate name matched, also show the preferred one.
+      const preferred = node.commonNames[0] && node.commonNames[0].toLowerCase() !== common?.toLowerCase()
+        ? `${esc(node.commonNames[0])} · ` : '';
       return `<li role="option" data-i="${i}" id="${this.list.id}-${i}" class="${i === this.active ? 'active' : ''}" aria-selected="${i === this.active}">
         <span class="s-main">${common ? esc(common) : sciName(node)}</span>
-        ${common ? `<span class="s-sci">${sciName(node)}</span>` : ''}
+        ${common ? `<span class="s-sci">${preferred}${sciName(node)}</span>` : ''}
         <span class="s-rank">${esc(node.rank)}</span>
       </li>`;
     }).join('');
@@ -171,7 +180,7 @@ class Picker {
 
   set(node) {
     this.node = node;
-    this.input.value = node ? plainName(node) : '';
+    this.input.value = node ? fullName(node) : '';
   }
 
   setText(text) {
