@@ -53,7 +53,8 @@ class Taxonomy {
   // prefix, word prefix, substring. Ties prefer species, then lower NCBI ids,
   // which loosely tracks how long and how well a taxon has been studied.
   search(query, limit = 10) {
-    const q = query.trim().toLowerCase();
+    // Ignore a trailing "(Scientific name)" left over from a picked "Common (Scientific)" label.
+    const q = (query.replace(/\s*\([^()]*\)?\s*$/, '').trim() || query.trim()).toLowerCase();
     if (q.length < 2) return [];
     const best = new Map(); // node id -> hit
     for (const entry of this.searchKeys) {
